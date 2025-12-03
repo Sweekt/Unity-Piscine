@@ -378,8 +378,8 @@
 -analyzer:"/goinfre/beroy/6000.2.14f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"/goinfre/beroy/6000.2.14f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 -analyzer:"/goinfre/beroy/6000.2.14f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
-"/home/beroy/goinfre/Module01/Library/PackageCache/com.unity.visualscripting@b4d700247d4b/DocCodeExamples/EventBusExamples.cs"
-"/home/beroy/goinfre/Module01/Library/PackageCache/com.unity.visualscripting@b4d700247d4b/DocCodeExamples/VariableExamples.cs"
+"/home/beroy/goinfre/Unity-Piscine/Module01/Library/PackageCache/com.unity.visualscripting@b4d700247d4b/DocCodeExamples/EventBusExamples.cs"
+"/home/beroy/goinfre/Unity-Piscine/Module01/Library/PackageCache/com.unity.visualscripting@b4d700247d4b/DocCodeExamples/VariableExamples.cs"
 -langversion:9.0
 /deterministic
 /optimize+

@@ -376,7 +376,7 @@
 -r:"/goinfre/beroy/6000.2.14f1/Editor/Data/UnityReferenceAssemblies/unity-4.8-api/System.Xml.dll"
 -r:"/goinfre/beroy/6000.2.14f1/Editor/Data/UnityReferenceAssemblies/unity-4.8-api/System.dll"
 -r:"/goinfre/beroy/6000.2.14f1/Editor/Data/UnityReferenceAssemblies/unity-4.8-api/mscorlib.dll"
--r:"/home/beroy/goinfre/Module01/Library/PackageCache/com.unity.ext.nunit@b16e6d09cd93/net40/unity-custom/nunit.framework.dll"
+-r:"/home/beroy/goinfre/Unity-Piscine/Module01/Library/PackageCache/com.unity.ext.nunit@b16e6d09cd93/net40/unity-custom/nunit.framework.dll"
 -r:"Library/Bee/artifacts/2400b0aE.dag/Unity.InputSystem.ref.dll"
 -r:"Library/Bee/artifacts/2400b0aE.dag/UnityEditor.TestRunner.ref.dll"
 -r:"Library/Bee/artifacts/2400b0aE.dag/UnityEditor.UI.ref.dll"
@@ -385,9 +385,9 @@
 -analyzer:"/goinfre/beroy/6000.2.14f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"/goinfre/beroy/6000.2.14f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 -analyzer:"/goinfre/beroy/6000.2.14f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
-"/home/beroy/goinfre/Module01/Library/PackageCache/com.unity.inputsystem@552acc76aabe/DocCodeSamples.Tests/GamepadExample.cs"
-"/home/beroy/goinfre/Module01/Library/PackageCache/com.unity.inputsystem@552acc76aabe/DocCodeSamples.Tests/GamepadHapticsExample.cs"
-"/home/beroy/goinfre/Module01/Library/PackageCache/com.unity.inputsystem@552acc76aabe/DocCodeSamples.Tests/InputSystemUIInputModuleAssignActionsExample.cs"
+"/home/beroy/goinfre/Unity-Piscine/Module01/Library/PackageCache/com.unity.inputsystem@552acc76aabe/DocCodeSamples.Tests/GamepadExample.cs"
+"/home/beroy/goinfre/Unity-Piscine/Module01/Library/PackageCache/com.unity.inputsystem@552acc76aabe/DocCodeSamples.Tests/GamepadHapticsExample.cs"
+"/home/beroy/goinfre/Unity-Piscine/Module01/Library/PackageCache/com.unity.inputsystem@552acc76aabe/DocCodeSamples.Tests/InputSystemUIInputModuleAssignActionsExample.cs"
 -langversion:9.0
 /deterministic
 /optimize+
