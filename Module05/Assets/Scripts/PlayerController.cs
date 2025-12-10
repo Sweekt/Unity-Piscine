@@ -16,19 +16,21 @@ public class PlayerController : MonoBehaviour
     
     [Header("Settings")]
     public int maxHealth = 3;
+    public int currentHealth;
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
 
     [Header("Components")]
+    public Camera mainCamera; 
     public Rigidbody2D rb;
     public Animator animator;
+    public GameObject background;
 
     [Header("Ground Check")]
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
     
-    private int _currentHealth;
     private Vector3 _respawnPoint;
     private bool _isDead = false;
     
@@ -39,9 +41,9 @@ public class PlayerController : MonoBehaviour
 
     void Start() {
         _initialScale = transform.localScale;
-        _currentHealth = maxHealth;
-        _respawnPoint = transform.position;
+        if (currentHealth <= 0) currentHealth = maxHealth;
         _audioSource = GetComponent<AudioSource>();
+        _respawnPoint = transform.position;
     }
     
     void Update() {
@@ -56,6 +58,15 @@ public class PlayerController : MonoBehaviour
         else if (_horizontalInput < 0) transform.localScale = new Vector3(-Mathf.Abs(_initialScale.x), _initialScale.y, _initialScale.z);
         animator.SetFloat("Speed", Mathf.Abs(_horizontalInput));
         animator.SetBool("IsJumping", !_isGrounded);
+        // Moving the camera
+        Vector3 camPos = mainCamera.transform.position;
+        camPos.x = transform.position.x;
+        camPos.y = transform.position.y + 3;
+        mainCamera.transform.position = camPos;
+        // Moving the background
+        Vector3 bgPos = background.transform.position;
+        bgPos.x = transform.position.x;
+        background.transform.position = bgPos;
     }
 
     void FixedUpdate() {
@@ -72,20 +83,20 @@ public class PlayerController : MonoBehaviour
     }
     
     public void TakeDamage(int damage) {
-        if (_isDead) return;
-
-        _currentHealth -= damage;
-        if (_currentHealth <= 0) {
+        if (_isDead) return; 
+        currentHealth -= damage;
+        if (GameManager.instance) GameManager.instance.UpdateHUD(currentHealth);
+        if (currentHealth <= 0)
             Die();
-        }
         else {
             animator.SetTrigger("Hit");
             PlaySound(damageClip);
         }
     }
-    
+
     void Die() {
         _isDead = true;
+        if (GameManager.instance) GameManager.instance.AddDeath();
         animator.SetBool("IsDead", true);
         PlaySound(defeatClip);
         StartCoroutine(RespawnRoutine());
@@ -101,7 +112,8 @@ public class PlayerController : MonoBehaviour
         fadePanel.alpha = 1f;
         yield return new WaitForSeconds(0.5f);
         transform.position = _respawnPoint;
-        _currentHealth = maxHealth;
+        currentHealth = maxHealth;
+        if (GameManager.instance) GameManager.instance.UpdateHUD(maxHealth);
         _isDead = false;
         animator.SetBool("IsDead", false);
         PlaySound(respawnClip);
@@ -116,5 +128,9 @@ public class PlayerController : MonoBehaviour
     
     void PlaySound(AudioClip clip) {
         _audioSource.PlayOneShot(clip);
+    }
+    
+    public void SetHealth(int amount) {
+        currentHealth = amount;
     }
 }

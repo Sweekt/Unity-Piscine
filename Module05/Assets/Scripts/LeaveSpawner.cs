@@ -38,7 +38,7 @@ public class LeaveSpawner : MonoBehaviour
         randomPosition.y += Random.Range(-spawnAreaSize.y / 2, spawnAreaSize.y / 2);
         GameObject newLeaf = Instantiate(leavePrefab, randomPosition, Quaternion.identity);
         newLeaf.transform.Rotate(0, 0, 70);
-        Destroy(newLeaf, 5f);
+        Destroy(newLeaf, 10f);
     }
 
     private void OnDrawGizmosSelected() {

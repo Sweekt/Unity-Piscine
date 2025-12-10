@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Leave
   - Leaves
+  - StartPoint
   layers:
   - Default
   - TransparentFX
