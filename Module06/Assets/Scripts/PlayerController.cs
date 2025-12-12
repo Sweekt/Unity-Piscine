@@ -6,6 +6,11 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
+    [Header("Audio")]
+    public AudioSource footstepSource;
+    public float runPitch = 1f;
+    public float sneakPitch = 0.6f;
+    
     [Header("Input System")]
     public InputActionReference moveAction;
     public InputActionReference sneakAction;
@@ -31,9 +36,13 @@ public class PlayerController : MonoBehaviour
     private Vector2 _inputVector;
     private Vector2 _lookInput;
     private float _xRotation = 0f;
-
+    private Vector3 _startPosition;
+    private Quaternion _startRotation;
+    
     void Start()
     {
+        _startPosition = transform.position;
+        _startRotation = transform.rotation;
         _controller = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         
@@ -62,6 +71,25 @@ public class PlayerController : MonoBehaviour
             MoveTPS();
 
         ApplyGravity();
+        bool isSneaking = sneakAction != null && sneakAction.action.IsPressed();
+        bool isMoving = _inputVector.magnitude > 0.1f;
+
+        if (isMoving) {
+            if (!footstepSource.isPlaying) footstepSource.Play();
+            footstepSource.pitch = isSneaking ? sneakPitch : runPitch;
+        }
+        else
+            if (footstepSource.isPlaying) footstepSource.Pause();
+    }
+
+    public void Reset()
+    {
+        if (_controller != null) _controller.enabled = false;
+        
+        transform.position = _startPosition;
+        transform.rotation = _startRotation;
+        
+        if (_controller != null) _controller.enabled = true;
     }
 
     public void SetFpsMode(bool active)
@@ -103,7 +131,7 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-            _controller.Move(direction * currentSpeed * Time.deltaTime);
+            _controller.Move(currentSpeed * Time.deltaTime * direction);
         }
         UpdateAnimation(isSneaking);
     }
@@ -127,7 +155,7 @@ public class PlayerController : MonoBehaviour
 
         if (move.magnitude > 0.1f)
         {
-            _controller.Move(move * currentSpeed * Time.deltaTime);
+            _controller.Move(currentSpeed * Time.deltaTime * move);
         }
         UpdateAnimation(isSneaking);
     }
@@ -142,5 +170,11 @@ public class PlayerController : MonoBehaviour
         if (_controller.isGrounded && _velocity.y < 0) _velocity.y = -2f;
         _velocity.y -= gravity * Time.deltaTime;
         _controller.Move(_velocity * Time.deltaTime);
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Finish"))
+            GameManager.instance.win();
     }
 }
